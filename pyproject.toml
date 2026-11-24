@@ -1,0 +1,42 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "rptrhash"
+version = "0.1.0"
+description = "Rust-powered PtrHash minimal perfect hash functions for Python: map n keys to range(n) in ~3 bits/key"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+keywords = ["minimal perfect hash", "mphf", "perfect hashing", "ptrhash", "static dictionary", "hash table"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+[project.urls]
+Homepage = "https://github.com/f4hy/rptrhash"
+Repository = "https://github.com/f4hy/rptrhash"
+Issues = "https://github.com/f4hy/rptrhash/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "hypothesis",
+    "ruff==0.15.21",
+]
+
+[tool.maturin]
+module-name = "rptrhash._rptrhash"
+python-source = "python"
+
+[tool.ruff]
+line-length = 100

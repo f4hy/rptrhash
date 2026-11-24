@@ -1,0 +1,16 @@
+
+n = 1,000,000  (8 threads)
+                             build  bits/key   ns/lookup    batch ns
+  rptrhash fast              0.18s      2.99         147         5.9
+  rptrhash compact           0.21s      2.17         142         7.0
+  bbhash (gamma=1)           0.08s      3.07         150        49.4
+  dict (table only)          0.20s    335.55         162         nan
+  rptrhash str (1000k)       0.20s      2.99         128        24.0
+
+n = 10,000,000  (8 threads)
+                             build  bits/key   ns/lookup    batch ns
+  rptrhash fast              2.64s      2.99         235        11.4
+  rptrhash compact           1.49s      2.17         226        11.4
+  bbhash (gamma=1)           0.71s      3.15         211        78.5
+  dict (table only)          3.19s    268.44         133         nan
+  rptrhash str (1000k)       0.19s      2.99         106        28.2

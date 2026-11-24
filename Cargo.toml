@@ -1,0 +1,35 @@
+[package]
+name = "rptrhash"
+version = "0.1.0"
+edition = "2021"
+description = "Rust-powered PtrHash minimal perfect hash functions for Python (PyO3)"
+license = "MIT"
+repository = "https://github.com/f4hy/rptrhash"
+
+[lib]
+name = "_rptrhash"
+crate-type = ["cdylib", "rlib"]
+
+# `extension-module` links against libpython and breaks `cargo test` (no
+# libpython to link against outside a Python process). Gate it behind a
+# feature that's on by default (so `maturin develop`/`maturin build` just
+# work) but can be turned off for plain `cargo test --no-default-features`.
+[features]
+default = ["extension-module"]
+extension-module = ["pyo3/extension-module"]
+
+[dependencies]
+# abi3-py311 builds against the stable ABI (matches requires-python in
+# pyproject.toml): one wheel per platform covers every Python >= 3.11.
+pyo3 = { version = "0.29", features = ["abi3-py311"] }
+ptr_hash = { version = "=2.1.5", default-features = false, features = ["rayon", "cacheline-ef", "epserde"] }
+cacheline-ef = "2.0"
+epserde = "0.13"
+rayon = "1.10"
+# Same crate instance ptr_hash uses for its pilot-search RNG (seeded in build).
+fastrand = "2"
+xxhash-rust = { version = "0.8", features = ["xxh3"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
