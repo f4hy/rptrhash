@@ -148,13 +148,17 @@ impl Fingerprints {
             0 => Fingerprints::None,
             8 => Fingerprints::U8(data.to_vec()),
             16 => Fingerprints::U16(
-                data.chunks_exact(2)
-                    .map(|c| u16::from_le_bytes([c[0], c[1]]))
+                data.as_chunks::<2>()
+                    .0
+                    .iter()
+                    .map(|c| u16::from_le_bytes(*c))
                     .collect(),
             ),
             32 => Fingerprints::U32(
-                data.chunks_exact(4)
-                    .map(|c| u32::from_le_bytes([c[0], c[1], c[2], c[3]]))
+                data.as_chunks::<4>()
+                    .0
+                    .iter()
+                    .map(|c| u32::from_le_bytes(*c))
                     .collect(),
             ),
             _ => return None,
